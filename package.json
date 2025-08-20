@@ -1,35 +1,35 @@
 {
-  "name": "portfolio-data-scientist",
+  "name": "portofolio-farrah",
   "version": "1.0.0",
-  "description": "Modern and professional portfolio website for Data Scientists",
-  "main": "index.html",
+  "description": "Professional Data Science Portfolio with Galaxy Theme",
+  "main": "public/index.html",
   "scripts": {
-    "start": "live-server --port=3000",
-    "build": "echo 'Building portfolio...' && echo 'Portfolio ready for deployment!'",
-    "deploy": "echo 'Deploying to production...'",
-    "dev": "live-server --port=8080 --open=/index.html"
+    "start": "serve public",
+    "build": "echo 'Static site ready for deployment'",
+    "deploy": "echo 'Deploying to Vercel...'",
+    "dev": "serve public -p 8080"
   },
   "keywords": [
     "portfolio",
     "data-science",
-    "web-development",
+    "galaxy-theme",
     "html",
     "css",
     "javascript",
     "responsive",
     "modern"
   ],
-  "author": "Your Name",
+  "author": "Farrah",
   "license": "MIT",
   "devDependencies": {
-    "live-server": "^1.2.1"
+    "serve": "^14.2.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/portfolio-data-scientist"
+    "url": "https://github.com/Raaa29/Portofolio_Farrah.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/portfolio-data-scientist/issues"
+    "url": "https://github.com/Raaa29/Portofolio_Farrah/issues"
   },
-  "homepage": "https://yourusername.github.io/portfolio-data-scientist"
+  "homepage": "https://raaa29.github.io/Portofolio_Farrah"
 }
