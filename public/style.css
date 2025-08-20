@@ -1686,11 +1686,20 @@ section {
     filter: brightness(0.8) contrast(1.1);
     position: relative;
     z-index: 2;
+    display: block;
+    background-color: var(--bg-light);
 }
 
-/* Loading state */
-.achievement-image img[src=""] {
+.achievement-image img:not([src]),
+.achievement-image img[src=""],
+.achievement-image img[src*="undefined"] {
     opacity: 0;
+    display: none;
+}
+
+.achievement-image img[src]:not([src=""]):not([src*="undefined"]) {
+    opacity: 1;
+    display: block;
 }
 
 /* Fallback icons only if images fail to load */

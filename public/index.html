@@ -152,7 +152,7 @@
                 </div>
                 <div class="about-image">
                     <div class="image-container">
-                        <img src="Images/PPARA.png" alt="Farraheira Panundaratrisna Fauziah" class="profile-image" />
+                        <img src="./Images/PPARA.png" alt="Farraheira Panundaratrisna Fauziah" class="profile-image" loading="lazy" />
                         <div class="image-overlay">
                             <div class="image-glow"></div>
                         </div>
@@ -176,7 +176,7 @@
                         <span>RANK #1</span>
                     </div>
                     <div class="achievement-image">
-                        <img src="Images/Best-Muvers.jpg" alt="Best Muvers Award" />
+                        <img src="./Images/Best-Muvers.jpg" alt="Best Muvers Award" loading="lazy" />
                         <div class="achievement-overlay">
                             <i class="fas fa-medal"></i>
                         </div>
@@ -203,7 +203,7 @@
                         <span>BEST PRESENTER</span>
                     </div>
                     <div class="achievement-image">
-                        <img src="Images/Best-Presentation.jpg" alt="Best Presentation Award" />
+                        <img src="./Images/Best-Presentation.jpg" alt="Best Presentation Award" loading="lazy" />
                         <div class="achievement-overlay">
                             <i class="fas fa-microphone"></i>
                         </div>
@@ -230,7 +230,7 @@
                         <span>BEST PROJECT</span>
                     </div>
                     <div class="achievement-image">
-                        <img src="Images/Best-Project.jpg" alt="Best Project Award" />
+                        <img src="./Images/Best-Project.jpg" alt="Best Project Award" loading="lazy" />
                         <div class="achievement-overlay">
                             <i class="fas fa-code-branch"></i>
                         </div>
@@ -712,6 +712,52 @@
     </footer>
 
     <script src="script.js"></script>
+    
+    <!-- Image debugging and error handling -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Debug and handle achievement images
+            const achievementImages = document.querySelectorAll('.achievement-image img');
+            
+            achievementImages.forEach((img, index) => {
+                console.log(`Checking image ${index + 1}: ${img.src}`);
+                
+                // Add loading event
+                img.addEventListener('load', function() {
+                    console.log(`✅ Image loaded successfully: ${this.src}`);
+                    this.style.opacity = '1';
+                });
+                
+                // Add error event
+                img.addEventListener('error', function() {
+                    console.error(`❌ Image failed to load: ${this.src}`);
+                    // Try alternative path
+                    if (!this.src.includes('./')) {
+                        console.log('Trying alternative path...');
+                        this.src = './' + this.src;
+                    } else {
+                        // Show fallback icon
+                        this.style.display = 'none';
+                        const fallback = document.createElement('div');
+                        fallback.innerHTML = '<i class="fas fa-image" style="font-size: 4rem; color: var(--text-secondary);"></i>';
+                        fallback.style.cssText = 'display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; position: absolute; top: 0; left: 0;';
+                        this.parentElement.appendChild(fallback);
+                    }
+                });
+                
+                // Force check if image is already cached
+                if (img.complete) {
+                    if (img.naturalHeight !== 0) {
+                        console.log(`✅ Image already cached: ${img.src}`);
+                        img.style.opacity = '1';
+                    } else {
+                        console.error(`❌ Cached image is broken: ${img.src}`);
+                        img.dispatchEvent(new Event('error'));
+                    }
+                }
+            });
+        });
+    </script>
     
 </body>
 </html>
