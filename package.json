@@ -1,0 +1,35 @@
+{
+  "name": "portfolio-data-scientist",
+  "version": "1.0.0",
+  "description": "Modern and professional portfolio website for Data Scientists",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=3000",
+    "build": "echo 'Building portfolio...' && echo 'Portfolio ready for deployment!'",
+    "deploy": "echo 'Deploying to production...'",
+    "dev": "live-server --port=8080 --open=/index.html"
+  },
+  "keywords": [
+    "portfolio",
+    "data-science",
+    "web-development",
+    "html",
+    "css",
+    "javascript",
+    "responsive",
+    "modern"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/portfolio-data-scientist"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/portfolio-data-scientist/issues"
+  },
+  "homepage": "https://yourusername.github.io/portfolio-data-scientist"
+}
