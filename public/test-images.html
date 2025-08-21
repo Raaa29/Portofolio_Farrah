@@ -1,89 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image Test</title>
+    <title>Test Images - Fixed</title>
     <style>
-        body { 
-            font-family: Arial; 
-            padding: 20px; 
-            background: #1a1a2e;
-            color: white;
+        body { font-family: Arial, sans-serif; padding: 20px; background: #000; color: white; }
+        img { 
+            max-width: 300px; 
+            margin: 10px; 
+            border: 2px solid #ccc; 
+            display: block;
         }
-        .test-container {
-            border: 2px solid #fff;
-            padding: 20px;
-            margin: 20px 0;
-            background: #16213e;
-        }
-        img {
-            max-width: 300px;
-            border: 2px solid #0f4c75;
-            margin: 10px;
-        }
-        .error {
-            color: #ff6b6b;
-        }
-        .success {
-            color: #51cf66;
-        }
+        .success { color: lime; }
+        .error { color: red; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #333; }
     </style>
 </head>
 <body>
-    <h1>Image Loading Test</h1>
+    <h1>Image Loading Test - With Fix</h1>
     
-    <div class="test-container">
-        <h3>Test 1: Direct file names</h3>
-        <img src="Best-Muvers.jpg" alt="Best Muvers" id="img1" />
-        <img src="Best-Presentation.jpg" alt="Best Presentation" id="img2" />
-        <img src="Best-Project.jpg" alt="Best Project" id="img3" />
-        <img src="PPARA.png" alt="Profile" id="img4" />
+    <div class="test-section">
+        <h2>Method 1: Relative Path with ./</h2>
+        <img src="./Images/PPARA.png" alt="Profile" id="img1">
+        <p id="status1">Loading...</p>
     </div>
-
-    <div class="test-container">
-        <h3>Test 2: Images folder path</h3>
-        <img src="Images/Best-Muvers.jpg" alt="Best Muvers" id="img5" />
-        <img src="Images/Best-Presentation.jpg" alt="Best Presentation" id="img6" />
-        <img src="Images/Best-Project.jpg" alt="Best Project" id="img7" />
-        <img src="Images/PPARA.png" alt="Profile" id="img8" />
+    
+    <div class="test-section">
+        <h2>Method 2: Direct Path</h2>
+        <img src="Best-Muvers.png" alt="Best Muvers" id="img2">
+        <p id="status2">Loading...</p>
     </div>
-
-    <div class="test-container">
-        <h3>Test 3: Relative path with dot</h3>
-        <img src="./Best-Muvers.jpg" alt="Best Muvers" id="img9" />
-        <img src="./Images/Best-Muvers.jpg" alt="Best Muvers" id="img10" />
+    
+    <div class="test-section">
+        <h2>Method 3: File Protocol</h2>
+        <img src="Best-Presentation.png" alt="Best Presentation" id="img3">
+        <p id="status3">Loading...</p>
     </div>
-
-    <div id="results"></div>
-
+    
     <script>
-        function checkImage(imgId, testName) {
-            const img = document.getElementById(imgId);
-            const results = document.getElementById('results');
-            
-            img.onload = function() {
-                results.innerHTML += `<p class="success">✅ ${testName}: Image loaded successfully (${img.src})</p>`;
-                console.log(`✅ ${testName}: Image loaded successfully`, img.src);
-            };
-            
-            img.onerror = function() {
-                results.innerHTML += `<p class="error">❌ ${testName}: Image failed to load (${img.src})</p>`;
-                console.error(`❌ ${testName}: Image failed to load`, img.src);
-            };
-        }
-
-        // Test all images
-        window.onload = function() {
-            checkImage('img1', 'Direct - Best Muvers');
-            checkImage('img2', 'Direct - Best Presentation');
-            checkImage('img3', 'Direct - Best Project');
-            checkImage('img4', 'Direct - PPARA');
-            checkImage('img5', 'Images/ - Best Muvers');
-            checkImage('img6', 'Images/ - Best Presentation');
-            checkImage('img7', 'Images/ - Best Project');
-            checkImage('img8', 'Images/ - PPARA');
-            checkImage('img9', './ - Best Muvers');
-            checkImage('img10', './Images/ - Best Muvers');
-        };
+        document.getElementById('img1').onload = () => document.getElementById('status1').innerHTML = '✅ LOADED - Method 1 works!';
+        document.getElementById('img1').onerror = () => document.getElementById('status1').innerHTML = '❌ FAILED - Method 1';
+        
+        document.getElementById('img2').onload = () => document.getElementById('status2').innerHTML = '✅ LOADED - Method 2 works!';
+        document.getElementById('img2').onerror = () => document.getElementById('status2').innerHTML = '❌ FAILED - Method 2';
+        
+        document.getElementById('img3').onload = () => document.getElementById('status3').innerHTML = '✅ LOADED - Method 3 works!';
+        document.getElementById('img3').onerror = () => document.getElementById('status3').innerHTML = '❌ FAILED - Method 3';
+        
+        // Console debug
+        console.log('Page URL:', window.location.href);
+        console.log('Base URL:', document.baseURI);
     </script>
 </body>
 </html>

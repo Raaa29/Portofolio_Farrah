@@ -602,9 +602,9 @@ function initializeAchievementImages() {
         
         // Set image source with error handling
         const imagePaths = [
-            'images/Best Muvers.jpg',
-            'images/Best Presentation.jpg', 
-            'images/Best Project.jpg'
+            'Best-Muvers.png',
+            'Best-Presentation.png', 
+            'Best-Project.png'
         ];
         
         if (imagePaths[index]) {

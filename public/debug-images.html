@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🔍 Image Loading Debug Test</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #111; 
+            color: white; 
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .test-section { 
+            margin: 30px 0; 
+            padding: 20px; 
+            border: 2px solid #333; 
+            border-radius: 10px;
+            background: #222;
+        }
+        .test-section h2 {
+            margin-bottom: 15px;
+            color: #4a9eff;
+        }
+        img { 
+            max-width: 300px; 
+            margin: 10px; 
+            border: 3px solid #666; 
+            display: block;
+            border-radius: 8px;
+        }
+        .success { color: #00ff00; font-weight: bold; }
+        .error { color: #ff4444; font-weight: bold; }
+        .loading { color: #ffaa00; }
+        .info-box {
+            background: #333;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .file-check {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        .file-check i {
+            margin-right: 10px;
+            width: 20px;
+        }
+        .btn {
+            background: #4a9eff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔍 Complete Image Loading Debug Test</h1>
+        
+        <div class="test-section">
+            <h2>📍 Current Page Info</h2>
+            <div class="info-box">
+                <div>URL: <span id="currentUrl"></span></div>
+                <div>Base: <span id="baseUrl"></span></div>
+                <div>Protocol: <span id="protocol"></span></div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📁 File Existence Check</h2>
+            <div id="fileCheck"></div>
+            <button class="btn" onclick="checkFiles()">🔄 Check Files Again</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>🖼️ Profile Image Test</h2>
+            <img src="PPARA.png" alt="Profile" id="profile" onload="imageLoaded('profile')" onerror="imageFailed('profile')">
+            <p id="profile-status" class="loading">⏳ Loading profile image...</p>
+        </div>
+        
+        <div class="test-section">
+            <h2>🏆 Best Muvers Award</h2>
+            <img src="Best-Muvers.png" alt="Best Muvers" id="muvers" onload="imageLoaded('muvers')" onerror="imageFailed('muvers')">
+            <p id="muvers-status" class="loading">⏳ Loading muvers image...</p>
+        </div>
+        
+        <div class="test-section">
+            <h2>🎤 Best Presentation Award</h2>
+            <img src="Best-Presentation.png" alt="Best Presentation" id="presentation" onload="imageLoaded('presentation')" onerror="imageFailed('presentation')">
+            <p id="presentation-status" class="loading">⏳ Loading presentation image...</p>
+        </div>
+        
+        <div class="test-section">
+            <h2>🚀 Best Project Award</h2>
+            <img src="Best-Project.png" alt="Best Project" id="project" onload="imageLoaded('project')" onerror="imageFailed('project')">
+            <p id="project-status" class="loading">⏳ Loading project image...</p>
+        </div>
+        
+        <div class="test-section">
+            <h2>🔧 Advanced Debugging</h2>
+            <button class="btn" onclick="debugImages()">🐛 Debug All Images</button>
+            <button class="btn" onclick="forceReload()">🔄 Force Reload</button>
+            <div id="debugOutput"></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize page info
+        document.getElementById('currentUrl').textContent = window.location.href;
+        document.getElementById('baseUrl').textContent = document.baseURI;
+        document.getElementById('protocol').textContent = window.location.protocol;
+
+        // Image loading handlers
+        function imageLoaded(id) {
+            const status = document.getElementById(id + '-status');
+            const img = document.getElementById(id);
+            status.innerHTML = '✅ SUCCESS: Image loaded successfully!';
+            status.className = 'success';
+            img.style.border = '3px solid #00ff00';
+            console.log(`✅ ${id} loaded:`, img.src, `Size: ${img.naturalWidth}x${img.naturalHeight}`);
+        }
+
+        function imageFailed(id) {
+            const status = document.getElementById(id + '-status');
+            const img = document.getElementById(id);
+            status.innerHTML = '❌ FAILED: Image could not load!';
+            status.className = 'error';
+            img.style.border = '3px solid #ff4444';
+            console.error(`❌ ${id} failed:`, img.src);
+        }
+
+        // File existence checker
+        async function checkFiles() {
+            const files = ['PPARA.png', 'Best-Muvers.png', 'Best-Presentation.png', 'Best-Project.png'];
+            const checkContainer = document.getElementById('fileCheck');
+            checkContainer.innerHTML = '';
+            
+            for (let file of files) {
+                const div = document.createElement('div');
+                div.className = 'file-check';
+                div.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Checking ${file}...`;
+                checkContainer.appendChild(div);
+                
+                try {
+                    const response = await fetch(file, { method: 'HEAD' });
+                    if (response.ok) {
+                        div.innerHTML = `<i class="fas fa-check" style="color: #00ff00;"></i> ${file} - EXISTS (${response.status})`;
+                    } else {
+                        div.innerHTML = `<i class="fas fa-times" style="color: #ff4444;"></i> ${file} - NOT FOUND (${response.status})`;
+                    }
+                } catch (error) {
+                    div.innerHTML = `<i class="fas fa-exclamation-triangle" style="color: #ffaa00;"></i> ${file} - ERROR: ${error.message}`;
+                }
+            }
+        }
+
+        // Advanced debugging
+        function debugImages() {
+            const debugOutput = document.getElementById('debugOutput');
+            const images = document.querySelectorAll('img');
+            let output = '<div class="info-box">';
+            
+            images.forEach((img, index) => {
+                output += `<div><strong>Image ${index + 1}:</strong></div>`;
+                output += `<div>- Source: ${img.src}</div>`;
+                output += `<div>- Complete: ${img.complete}</div>`;
+                output += `<div>- Natural Size: ${img.naturalWidth}x${img.naturalHeight}</div>`;
+                output += `<div>- Display Size: ${img.width}x${img.height}</div>`;
+                output += `<hr style="margin: 10px 0; border-color: #555;">`;
+            });
+            
+            output += '</div>';
+            debugOutput.innerHTML = output;
+        }
+
+        function forceReload() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                const src = img.src;
+                img.src = '';
+                img.src = src + '?t=' + new Date().getTime();
+            });
+        }
+
+        // Auto-run file check when page loads
+        window.addEventListener('load', () => {
+            setTimeout(checkFiles, 1000);
+            setTimeout(debugImages, 2000);
+        });
+
+        // Console debug
+        console.log('🔍 Debug Test Page Loaded');
+        console.log('URL:', window.location.href);
+        console.log('Base URI:', document.baseURI);
+    </script>
+</body>
+</html>

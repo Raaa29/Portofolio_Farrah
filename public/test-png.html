@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PNG Test - Awards Images</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #000; 
+            color: white; 
+        }
+        img { 
+            max-width: 300px; 
+            margin: 10px; 
+            border: 2px solid #333; 
+            display: block;
+            background: white;
+        }
+        .success { color: lime; }
+        .error { color: red; }
+        .test-section { 
+            margin: 20px 0; 
+            padding: 20px; 
+            border: 1px solid #333; 
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🖼️ PNG Awards Images Test</h1>
+    
+    <div class="test-section">
+        <h2>Profile Image (PNG)</h2>
+        <img src="PPARA.png" alt="Profile" id="profile">
+        <p id="profile-status">Loading...</p>
+    </div>
+    
+    <div class="test-section">
+        <h2>Best Muvers Award (PNG)</h2>
+        <img src="Best-Muvers.png" alt="Best Muvers" id="muvers">
+        <p id="muvers-status">Loading...</p>
+    </div>
+    
+    <div class="test-section">
+        <h2>Best Presentation Award (PNG)</h2>
+        <img src="Best-Presentation.png" alt="Best Presentation" id="presentation">
+        <p id="presentation-status">Loading...</p>
+    </div>
+    
+    <div class="test-section">
+        <h2>Best Project Award (PNG)</h2>
+        <img src="Best-Project.png" alt="Best Project" id="project">
+        <p id="project-status">Loading...</p>
+    </div>
+    
+    <script>
+        const images = ['profile', 'muvers', 'presentation', 'project'];
+        
+        images.forEach(id => {
+            const img = document.getElementById(id);
+            const status = document.getElementById(id + '-status');
+            
+            img.onload = function() {
+                status.innerHTML = '✅ PNG LOADED SUCCESSFULLY!';
+                status.className = 'success';
+                this.style.border = '3px solid lime';
+                console.log(`✅ ${id} loaded:`, this.src);
+            };
+            
+            img.onerror = function() {
+                status.innerHTML = '❌ PNG FAILED TO LOAD';
+                status.className = 'error';
+                this.style.border = '3px solid red';
+                console.log(`❌ ${id} failed:`, this.src);
+            };
+        });
+        
+        console.log('Testing PNG images from:', window.location.href);
+    </script>
+</body>
+</html>
